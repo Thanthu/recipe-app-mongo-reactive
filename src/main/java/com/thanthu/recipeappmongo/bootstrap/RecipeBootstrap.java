@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -17,6 +18,7 @@ import com.thanthu.recipeappmongo.domain.enums.Difficulty;
 import com.thanthu.recipeappmongo.repositories.CategoryRepository;
 import com.thanthu.recipeappmongo.repositories.RecipeRepository;
 import com.thanthu.recipeappmongo.repositories.UnitOfMeasureRepository;
+import com.thanthu.recipeappmongo.repositories.reactive.UnitOfMeasureReactiveRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +29,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	private final CategoryRepository categoryRepository;
 	private final RecipeRepository recipeRepository;
 	private final UnitOfMeasureRepository unitOfMeasureRepository;
-
+	
 	public RecipeBootstrap(CategoryRepository categoryRepository, RecipeRepository recipeRepository,
 			UnitOfMeasureRepository unitOfMeasureRepository) {
 		this.categoryRepository = categoryRepository;

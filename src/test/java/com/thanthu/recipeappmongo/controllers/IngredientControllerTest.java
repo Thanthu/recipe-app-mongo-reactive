@@ -25,9 +25,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.thanthu.recipeappmongo.commands.IngredientCommand;
 import com.thanthu.recipeappmongo.commands.RecipeCommand;
+import com.thanthu.recipeappmongo.commands.UnitOfMeasureCommand;
 import com.thanthu.recipeappmongo.services.IngredientService;
 import com.thanthu.recipeappmongo.services.RecipeService;
 import com.thanthu.recipeappmongo.services.UnitOfMeasureService;
+
+import reactor.core.publisher.Flux;
 
 @ExtendWith(MockitoExtension.class)
 public class IngredientControllerTest {
@@ -86,7 +89,7 @@ public class IngredientControllerTest {
 
 		// when
 		when(ingredientService.findByRecipeIdAndIngredientId(anyString(), anyString())).thenReturn(ingredientCommand);
-		when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
+		when(unitOfMeasureService.listAllUoms()).thenReturn(Flux.just(new UnitOfMeasureCommand()));
 
 		// then
 		mockMvc.perform(get("/recipe/1/ingredient/2/update")).andExpect(status().isOk())
@@ -119,7 +122,7 @@ public class IngredientControllerTest {
 
 		// when
 		when(recipeService.findCommandById(anyString())).thenReturn(recipeCommand);
-		when(unitOfMeasureService.listAllUoms()).thenReturn(new HashSet<>());
+		when(unitOfMeasureService.listAllUoms()).thenReturn(Flux.just(new UnitOfMeasureCommand()));
 
 		// then
 		mockMvc.perform(get("/recipe/1/ingredient/new")).andExpect(status().isOk())
